@@ -13,7 +13,7 @@ export type MapItem = {
 		'specific-issues': {
 			name: ContentSentence;
 			description: ContentSentence;
-			image: string;
+			images: string[];
 		}[];
 		'accessibility-features-1-5': {
 			parking: number;
@@ -21,7 +21,6 @@ export type MapItem = {
 			paths: number;
 			seating: number;
 			shelter: number;
-			assistance: number;
 		};
 	};
 };
@@ -30,84 +29,108 @@ export const mapData: MapItem[] = [
 	{
 		id: '1',
 		name: {
-			en: "Ta' Qali Park",
-			mt: "Il-Park ta' Ta' Qali"
+			en: 'Selmun Family Park',
+			mt: "Il-Park tal-Familja f'Selmun"
 		},
 		description: {
-			en: "Ta' Qali Park is a large public park in the centre of Malta. It is still used for agriculture, but also for sports, concerts, and other activities.",
-			mt: "Il-Park ta' Ħal-Tarxien huwa park pubbliku kbir fil-qalba ta' Malta. Huwa għadu użat għall-agrikoltura, iżda wkoll għall-isports, kuncerti, u attivitajiet oħra."
+			en: 'Selmun Family Park is a small public park in the north of Malta. It contains a running track, playgrounds, picnic areas and various sport fields',
+			mt: "Il-Park tal-Familja f'Selmun huwa park pubbliku żgħir fit-tramuntana ta' Malta. Fiha pista għal-ġiri, postijiet tal-logħob, żoni għall-'picnic' u diversi kampijiet sportivi."
 		},
-		latitude: 35.8956,
-		longitude: 14.4422,
-		googleMapsLink: 'https://goo.gl/maps/7ZQ7Q5Q7Q7Q7',
+		latitude: 35.95556,
+		longitude: 14.373796,
+		googleMapsLink:
+			'https://www.google.com/maps/place/Selmun+Family+Park/@35.9556255,14.371091,1274m/data=!3m1!1e3!4m14!1m7!3m6!1s0x130e4c2b59997bed:0xcb9fb4dde9d44dfe!2sSelmun+Family+Park!8m2!3d35.9556212!4d14.3736659!16s%2Fg%2F11c1tsyn6g!3m5!1s0x130e4c2b59997bed:0xcb9fb4dde9d44dfe!8m2!3d35.9556212!4d14.3736659!16s%2Fg%2F11c1tsyn6g?entry=ttu&g_ep=EgoyMDI1MDkxMC4wIKXMDSoASAFQAw%3D%3D',
 		'accessibility-information': {
-			'overall-rating-1-5': 4,
+			'overall-rating-1-5': 2,
 			text: {
-				en: '',
-				mt: ''
+				en: 'In general, the park is somewhat accessible, but various issues make the park difficult to navigate for wheelchair users, as well as the general public. That said, many amamenities are available, and the park is a nice place to visit.',
+				mt: 'B’mod ġenerali, il-park huwa xi ftit aċċessibbli, iżda diversi problemi jagħmlu l-park diffiċli biex wieħed jimxi fih għal nies bis-siġġijiet tar-roti, kif ukoll għall-pubbliku ġenerali. Apparti min hekk, għandu ħafna faċilitajiet, u l-park huwa post sabiħ biex wieħed iżur.'
 			},
 			'specific-issues': [
 				{
 					name: {
-						en: '',
-						mt: ''
+						en: 'Paths',
+						mt: 'Trejqiet'
 					},
 					description: {
-						en: '',
-						mt: ''
+						en: 'Most paths are level and smooth enough, however are too narrow for 2-way wheelchair traffic. Paths are also bordered with small walls, which greatly limit manouvering space. Additionally, some paths are completely inaccessable due to big steps at their start or end.',
+						mt: 'Ħafna mit-toroq huma livellati u biżżejjed lixxi, madankollu huma wisq rqiqa għal traffiku ta’ siġġijiet tar-roti f’żewġ direzzjonijiet. It-toroq huma wkoll mdawra b’ħitan żgħar, li jillimitaw b’mod kbir l-aċċess. Barra minn hekk, xi toroq huma kompletament inaċċessibbli minħabba tarġi kbar fil-bidu jew fit-tmiem tagħhom.'
 					},
-					image: ''
-				}
-			],
-			'accessibility-features-1-5': {
-				parking: 4,
-				toilets: 3,
-				paths: 4,
-				seating: 4,
-				shelter: 4,
-				assistance: 4
-			}
-		}
-	},
-	{
-		id: '2',
-		name: {
-			en: 'Valletta',
-			mt: 'Il-Belt Valletta'
-		},
-		description: {
-			en: 'Valletta is the capital city of Malta. It is a UNESCO World Heritage Site, and is known for its historic buildings, museums, and gardens.',
-			mt: "Il-Belt Valletta hi l-kapitali ta' Malta. Hi sit tal-Patrimonju Dinji tal-UNESCO, u hija magħrufa għall-bini storiku żgħir, mużewijiet, u ġonna."
-		},
-		latitude: 35.8989,
-		longitude: 14.5146,
-		googleMapsLink: 'https://goo.gl/maps/7ZQ7Q5Q7Q7Q7',
-		'accessibility-information': {
-			'overall-rating-1-5': 3,
-			text: {
-				en: '',
-				mt: ''
-			},
-			'specific-issues': [
+					images: [
+						'/accessible-map-imgs/selmun-park/path1.jpg',
+						'/accessible-map-imgs/selmun-park/path2.jpg',
+						'/accessible-map-imgs/selmun-park/path3.jpg',
+						'/accessible-map-imgs/selmun-park/path4.jpg'
+					]
+				},
 				{
 					name: {
-						en: '',
-						mt: ''
+						en: 'Toilets',
+						mt: 'Toilets'
 					},
 					description: {
-						en: '',
-						mt: ''
+						en: 'Unfortunately, the toilets at the park are in very bad shape and in need of severe repair. Additionally, the toilet area has a step at its entrance, making it inaccessible for wheelchair users.',
+						mt: 'Sfortunatament, it-toilets fil-park jinsabu f’kundizzjoni ħażina ħafna u jeħtieġu manutenzjoni severa. Barra minn hekk, tat-toilets għandhom tarġa fil-daħla, li tagħmilhom inaċċessibbli għal nies bis-siġġijiet tar-roti.'
 					},
-					image: ''
+					images: [
+						'/accessible-map-imgs/selmun-park/toilet1.jpg',
+						'/accessible-map-imgs/selmun-park/toilet2.jpg'
+					]
+				},
+				{
+					name: {
+						en: 'Shelter',
+						mt: 'Kenn'
+					},
+					description: {
+						en: 'The park has no shelter in case of rain.',
+						mt: 'Il-park ma għandu l-ebda kenn fil-kas tax-xita.'
+					},
+					images: []
+				},
+				{
+					name: {
+						en: 'Picnic Area',
+						mt: 'Zona tal-Picnic'
+					},
+					description: {
+						en: 'While the Picnic Area is accessible, the tables are not wheelchair accessible, being too high and narrow for wheelchair users.',
+						mt: "Filwaqt li l-żona tal-Picnic hi aċċessibbli, l-imwejjed m'humiex aċċessibbli għan-nies bis-siġġijiet tar-roti, peress li huma għoljin u rqiqa wisq."
+					},
+					images: ['/accessible-map-imgs/selmun-park/picnic1.jpg']
+				},
+				{
+					name: {
+						en: 'Hazardous Areas',
+						mt: 'Żoni Perikolużi'
+					},
+					description: {
+						en: 'There are various areas in the park that are hazardous for wheelchair users, such as open grassy areas and step edges. These areas are not properly marked, and pose a danger to wheelchair users as well as the general public.',
+						mt: 'Hemm diversi żoni fil-park li huma perikolużi għan-nies bis-siġġijiet tar-roti, bħal żoni miftuħa bil-ħaxix u tarġi. Dawn iż-żoni mhumiex immarkati b’mod xieraq, u joffru periklu kemm għan-nies bis-siġġijiet tar-roti kif ukoll għall-pubbliku ġenerali.'
+					},
+					images: [
+						'/accessible-map-imgs/selmun-park/danger-area1.jpg',
+						'/accessible-map-imgs/selmun-park/danger-area2.jpg'
+					]
+				},
+				{
+					name: {
+						en: 'Parking',
+						mt: 'Parkeġġ'
+					},
+					description: {
+						en: 'Most paths are level and smooth enough, however are too narrow for 2-way wheelchair traffic. Paths are also bordered with small walls, which greatly limit manouvering space. Additionally, some paths are completely inaccessable due to big steps at their start or end.',
+						mt: 'Ħafna mit-toroq huma livellati u biżżejjed lixxi, madankollu huma wisq rqiqa għal traffiku ta’ siġġijiet tar-roti f’żewġ direzzjonijiet. It-toroq huma wkoll mdawra b’ħitan żgħar, li jillimitaw b’mod kbir l-aċċess. Barra minn hekk, xi toroq huma kompletament inaċċessibbli minħabba tarġi kbar fil-bidu jew fit-tmiem tagħhom.'
+					},
+					images: []
 				}
 			],
 			'accessibility-features-1-5': {
-				parking: 4,
-				toilets: 3,
-				paths: 4,
-				seating: 4,
-				shelter: 4,
-				assistance: 4
+				parking: 2,
+				toilets: 2,
+				paths: 3,
+				seating: 2,
+				shelter: 1
 			}
 		}
 	}

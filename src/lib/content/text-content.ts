@@ -132,8 +132,8 @@ export const textContent: {
 		mt: "Aqsam dak li nagħmlu ma' ħbieb u familja tiegħek, u għinna nilħqu aktar nies li jistgħu jkunu jeħtieġu l-għajnuna tagħna, jew jistaw jgħinuna."
 	},
 	'share-us-part-3': {
-		en: 'We are committed to never spending any money on advertising, so we can spend any donations we receive on what really matters. Therefore, we rely on people like you to help us spread the word.',
-		mt: 'Aħna impenjati li qatt ma nużaw flus fuq reklamar, sabiex inkun nistgħu nużaw id-donazzjonijiet li nirċievu fuq dak li verament hu importanti. Għalhekk, nidependu minn nies bħalek li tgħinna nxerrdu l-aħbar.'
+		en: 'We are committed to spending as little money on advertising as possible, so we can spend any donations we receive on what really matters. Therefore, we rely on people like you to help us spread the word.',
+		mt: "Qed nagħmlu l-almu tagħna biex żaw kemm jista' jkun ftit flus fuq reklamar, sabiex inkun nistgħu nużaw id-donazzjonijiet li nirċievu fuq dak li verament hu importanti. Għalhekk, nidependu minn nies bħalek li tgħinna nxerrdu l-aħbar."
 	},
 	'share-us-virtual': {
 		en: 'If you want to share this website virtually, click below to copy the link',

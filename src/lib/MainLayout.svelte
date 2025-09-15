@@ -7,8 +7,8 @@
 	import { goto } from '$app/navigation';
 	import type { LayoutProps } from '../routes/$types';
 	import { fade, fly } from 'svelte/transition';
-	import { Accessibility } from 'accessibility';
-	import { onMount } from 'svelte';
+	// import { Accessibility } from 'accessibility';
+	// import { onMount } from 'svelte';
 
 	let pageState = $derived.by<{
 		word: string;
@@ -78,9 +78,9 @@
 		}
 	});
 
-	onMount(() => {
-		new Accessibility();
-	});
+	// onMount(() => {
+	// 	new Accessibility();
+	// });
 
 	export interface MainLayoutProps extends Omit<LayoutProps, 'data'> {}
 

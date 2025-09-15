@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import type { MapItem } from '$lib/content/accessibility-map';
 	import { mapData } from '$lib/content/accessibility-map';
+	import Gallery from '$lib/Gallery.svelte';
 
 	const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -148,34 +149,109 @@
 	});
 
 	let expandedPoint = $state<string>('');
+	let expandedIssues = $state<string>('');
 	// let quickExpandedPoint = $state<string>('');
 </script>
 
 {#snippet rowInside(props: { point: MapItem })}
-	<div class="row">
-		<div class="half-width column"></div>
-		<div class="half-width column">
+	<div class="column" style="gap: 10px">
+		<div class="column">
+			<p>Description:</p>
 			<p>{chooseLanguage(props.point.description)}</p>
 		</div>
-	</div>
 
-	<p>{chooseLanguage(props.point['accessibility-information'].text)}</p>
-	<div class="row">
-		{#each props.point['accessibility-information']['specific-issues'] as issue}
-			<div class="card">
-				<h4>{chooseLanguage(issue.name)}</h4>
-				<p>{chooseLanguage(issue.description)}</p>
-				<img src={issue.image} alt={chooseLanguage(issue.name)} />
-			</div>
-		{/each}
-	</div>
-
-	{#each Object.entries(props.point['accessibility-information']['accessibility-features-1-5']) as [key, value]}
-		<div class="card">
-			<h4>{key}</h4>
-			<p>{value}</p>
+		<div class="column">
+			<p>General Accessibility Information:</p>
+			<p>
+				{chooseLanguage(props.point['accessibility-information'].text)}
+			</p>
 		</div>
-	{/each}
+		<div class="column" style="gap: 10px;">
+			<div class="row location-row">
+				<div class="column">
+					<p>Specific Issues:</p>
+				</div>
+				<div class="row action-row">
+					<button
+						class="normal-button basic-button"
+						onclick={() => {
+							expandedIssues = expandedIssues === props.point.id ? '' : props.point.id;
+						}}
+					>
+						{expandedIssues === props.point.id
+							? getContent('accessibility-map-show-less')
+							: getContent('accessibility-map-show-more')}
+					</button>
+				</div>
+			</div>
+			{#if expandedIssues === props.point.id}
+				<div
+					style="gap: 10px"
+					class="column"
+					in:slide={{ duration: 500 }}
+					out:slide={{ duration: 500 }}
+				>
+					{#each props.point['accessibility-information']['specific-issues'] as issue, index}
+						<div class="column" style="border: 1px solid #eee; gap: 5px; padding: 10px; ">
+							<h4>{chooseLanguage(issue.name)}:</h4>
+							<div
+								class="row hidden-on-mobile"
+								style={`gap: 10px; align-items: stretch; flex-direction: ${index % 2 === 0 ? 'row' : 'row-reverse'}`}
+							>
+								<div class="column half-width" style="height: 100%;">
+									<p>{chooseLanguage(issue.description)}</p>
+								</div>
+								{#if issue.images.length > 0}
+									<div class="column half-width">
+										<Gallery
+											images={issue.images.map((img) => ({
+												altName: chooseLanguage(issue.name),
+												src: img
+											}))}
+											startIndex={0}
+										/>
+									</div>
+								{/if}
+							</div>
+							<div class="column hidden-on-computer" style="gap: 10px;">
+								<div class="column">
+									<p>{chooseLanguage(issue.description)}</p>
+								</div>
+								{#if issue.images.length > 0}
+									<div class="column">
+										<Gallery
+											images={issue.images.map((img) => ({
+												altName: chooseLanguage(issue.name),
+												src: img
+											}))}
+											startIndex={0}
+										/>
+									</div>
+								{/if}
+							</div>
+						</div>
+					{/each}
+				</div>
+			{/if}
+		</div>
+
+		<p>Final Accessibility Features Ratings:</p>
+		<div class="column" style="align-items: flex-end; ">
+			{#each Object.entries(props.point['accessibility-information']['accessibility-features-1-5']) as [key, value]}
+				<div class="row" style="gap: 10px;">
+					<h4>{key}:</h4>
+					<p>{value}</p>
+				</div>
+			{/each}
+			<div
+				class="row"
+				style="gap: 10px; border-top: 1px solid var(--text-color); padding-top: 10px;"
+			>
+				<h3>Overall Rating:</h3>
+				<p>{props.point['accessibility-information']['overall-rating-1-5']}/5</p>
+			</div>
+		</div>
+	</div>
 {/snippet}
 
 <div in:slide={{ duration: 500 }} out:slide={{ duration: 500 }} class="fullscreen column">
@@ -192,9 +268,9 @@
 			bind:this={mapContainer}
 		></div>
 	</div>
-	<div class="column list">
+	<div class="column list" style="gap: 20px">
 		{#each mapData as point}
-			<div class="column">
+			<div class="column" style="gap: 20px">
 				<div id="{point.id}-row" class="row location-row">
 					<div class="column">
 						<h3 class="no-margin">{chooseLanguage(point.name)}</h3>
@@ -217,16 +293,9 @@
 						<button
 							class="normal-button basic-button"
 							onclick={() => {
-								// if (quickExpandedPoint === point.id) {
-								// 	quickExpandedPoint = '';
-								// } else {
-								// 	expandedPoint = expandedPoint === point.id ? '' : point.id;
-								// }
-
 								expandedPoint = expandedPoint === point.id ? '' : point.id;
 							}}
 						>
-							<!-- {expandedPoint === point.id || quickExpandedPoint === point.id -->
 							{expandedPoint === point.id
 								? getContent('accessibility-map-show-less')
 								: getContent('accessibility-map-show-more')}
@@ -286,8 +355,9 @@
 	}
 
 	.half-width {
-		width: 50%;
+		flex: 1;
 		justify-content: space-between;
+		gap: 10px;
 	}
 
 	button {

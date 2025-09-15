@@ -205,7 +205,7 @@
 		const windowWidth = browser ? window.innerWidth : 0;
 		const windowHeight = browser ? window.innerHeight : 0;
 
-		if (targetSizeInfo && myHeight && myWidth) {
+		if (targetSizeInfo && myHeight !== undefined && myWidth !== undefined && mySizeInfo) {
 			let forcedPosition: TargetDivPosition = preferredPosition;
 
 			const topSpace = targetSizeInfo.top;
