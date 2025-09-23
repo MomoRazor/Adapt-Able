@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { navigationOrder, siteSections, type SiteSection } from '$lib/content/util';
 	import { flyIn, flyOut, type FlyDirection } from '$lib/transition';
-	import { swipe } from 'svelte-gestures';
+	import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures';
 	import { goto } from '$app/navigation';
 	import type { LayoutProps } from '../routes/$types';
 	import { fade, fly } from 'svelte/transition';
@@ -85,22 +85,24 @@
 	export interface MainLayoutProps extends Omit<LayoutProps, 'data'> {}
 
 	let { children }: MainLayoutProps = $props();
+
+	function handler(event: SwipeCustomEvent) {
+		if (!pageState.main) {
+			return;
+		}
+		if (event.detail.direction === 'left') {
+			direction = 'right';
+			goto(next);
+		} else {
+			direction = 'left';
+			goto(previous);
+		}
+	}
 </script>
 
 <div
 	class="fullscreen"
-	use:swipe={() => (pageState.main ? { timeframe: 300, minSwipeDistance: 60 } : {})}
-	onswipe={pageState.main
-		? (event) => {
-				if (event.detail.direction === 'left') {
-					direction = 'right';
-					goto(next);
-				} else {
-					direction = 'left';
-					goto(previous);
-				}
-			}
-		: undefined}
+	{...useSwipe(handler, () => ({ timeframe: 300, minSwipeDistance: 60, touchAction: 'none' }))}
 >
 	<div class="text-center">
 		<div

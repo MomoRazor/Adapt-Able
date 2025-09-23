@@ -156,16 +156,22 @@
 {#snippet rowInside(props: { point: MapItem })}
 	<div class="column" style="gap: 10px">
 		<div class="column">
-			<p>Description:</p>
-			<p>{chooseLanguage(props.point.description)}</p>
+			<p>General Information:</p>
+			{#if Array.isArray(props.point.generalInfo)}
+				{#each props.point.generalInfo as info}
+					<p>{chooseLanguage(info)}</p>
+				{/each}
+			{:else}
+				<p>{chooseLanguage(props.point.generalInfo)}</p>
+			{/if}
 		</div>
 
-		<div class="column">
+		<!-- <div class="column">
 			<p>General Accessibility Information:</p>
 			<p>
 				{chooseLanguage(props.point['accessibility-information'].text)}
 			</p>
-		</div>
+		</div> -->
 		<div class="column" style="gap: 10px;">
 			<div class="row location-row">
 				<div class="column">
@@ -199,7 +205,13 @@
 								style={`gap: 10px; align-items: stretch; flex-direction: ${index % 2 === 0 ? 'row' : 'row-reverse'}`}
 							>
 								<div class="column half-width" style="height: 100%;">
-									<p>{chooseLanguage(issue.description)}</p>
+									{#if Array.isArray(issue.description)}
+										{#each issue.description as info}
+											<p>{chooseLanguage(info)}</p>
+										{/each}
+									{:else}
+										<p>{chooseLanguage(issue.description)}</p>
+									{/if}
 								</div>
 								{#if issue.images.length > 0}
 									<div class="column half-width">
@@ -215,7 +227,13 @@
 							</div>
 							<div class="column hidden-on-computer" style="gap: 10px;">
 								<div class="column">
-									<p>{chooseLanguage(issue.description)}</p>
+									{#if Array.isArray(issue.description)}
+										{#each issue.description as info}
+											<p>{chooseLanguage(info)}</p>
+										{/each}
+									{:else}
+										<p>{chooseLanguage(issue.description)}</p>
+									{/if}
 								</div>
 								{#if issue.images.length > 0}
 									<div class="column">
@@ -357,7 +375,6 @@
 	.half-width {
 		flex: 1;
 		justify-content: space-between;
-		gap: 10px;
 	}
 
 	button {

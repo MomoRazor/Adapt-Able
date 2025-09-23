@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { swipe } from 'svelte-gestures';
+	import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures';
 	import Arrow from './Arrow.svelte';
 
 	interface GalleryProps {
@@ -13,12 +13,8 @@
 	let props: GalleryProps = $props();
 
 	let currentIndex = $state(props.startIndex ?? 0);
-</script>
 
-<div
-	class="gallery row"
-	use:swipe={() => ({ timeframe: 300, minSwipeDistance: 60 })}
-	onswipe={(event) => {
+	function handler(event: SwipeCustomEvent) {
 		if (event.detail.direction === 'right') {
 			if (currentIndex === props.images.length - 1) {
 				currentIndex = 0;
@@ -32,7 +28,12 @@
 				currentIndex -= 1;
 			}
 		}
-	}}
+	}
+</script>
+
+<div
+	class="gallery row"
+	{...useSwipe(handler, () => ({ timeframe: 300, minSwipeDistance: 60, touchAction: 'none' }))}
 >
 	<button
 		class="hidden-button arrow column back-icon"
@@ -78,23 +79,21 @@
 
 <style>
 	.gallery {
-		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 		width: 100%;
+		height: 300px;
 		gap: 10px;
 	}
 
 	.image-container {
 		display: flex;
-		flex: 1;
-		max-width: 600px;
+		height: 85%;
 		text-align: center;
 	}
 
 	img {
-		flex: 1;
 		width: 100%;
-		height: auto;
+		height: 100%;
 		border-radius: 8px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
